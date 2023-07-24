@@ -38,18 +38,28 @@ def num_romano(numero):
     decenas =  ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
     unidades = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
 
+    millar = numero // 1000
+    resto = numero % 1000
+    centena = resto // 100
+    resto = resto % 100
+    decena = resto // 10
+    resto = resto % 10
+    unidad = resto
+    
     # DESCOMPOSICION EN MILLARES, CENTENAS, DECENAS Y UNIDADES
     # MAPEAR EL COSCIENTE(DICCIONARIO)
+    romano = millares[millar] + centenas[centena] + decenas[decena] + unidades[unidad]
     # SI HAY RESTO REPETIMOS
-    elif type(numero) == int:
-        return "TODO: convertir a romano"
-
+    
+    return romano
 
 print(num_romano(56))
 print(num_romano(56.1))
-print(num_romano("lo que quieras"))
+print(num_romano("lo que quiera"))
 print(num_romano([]))
 print(num_romano({}))
+print(num_romano(0))
+print(num_romano(4000))
 print(num_romano(1))
 print(num_romano(3999))
 
