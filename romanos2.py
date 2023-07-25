@@ -14,13 +14,25 @@ def romano_a_entero(romano):
     if not isinstance(romano, str):
         return 'ERROR: tiene que ser un numero romano en formato cadena de texto'
     
-    resultado1 = 0
-
+    resultado = 0
+    anterior = 0
 
     for letra in romano:
         if letra not in digitos_romanos:
             return f'ERROR: {letra} no es un digito romano válido'
-    return 'todo: devolver resultado'
+        actual = digitos_romanos[letra]
+        
+        if anterior < actual: 
+            #deshacer la suma que hemos hecho antes
+            resultado = resultado - anterior
+            #sumar el valor actual, pero restando el anterior
+            resultado = resultado + (actual - anterior)
+        else:
+            resultado = resultado + actual
+
+
+        anterior = actual
+    return resultado
 
 errores = ['A', '', 3, ['X', 'X', 'I']]
 pruebas = [ 'I', 'MCXXIII', 'VIII', 'LVI', 'IV' ]
