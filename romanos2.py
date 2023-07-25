@@ -16,17 +16,17 @@ def romano_a_entero(romano):
     
     resultado = 0
     anterior = 0
-
-    for letra in romano:
+    romano_invertido = romano[::-1]
+    for letra in romano_invertido:
         if letra not in digitos_romanos:
             return f'ERROR: {letra} no es un digito romano válido'
         actual = digitos_romanos[letra]
         
-        if anterior < actual: 
+        if anterior > actual: 
             #deshacer la suma que hemos hecho antes
-            resultado = resultado - anterior
+            resultado = resultado - actual
             #sumar el valor actual, pero restando el anterior
-            resultado = resultado + (actual - anterior)
+           
         else:
             resultado = resultado + actual
 
@@ -35,7 +35,7 @@ def romano_a_entero(romano):
     return resultado
 
 errores = ['A', '', 3, ['X', 'X', 'I']]
-pruebas = [ 'I', 'MCXXIII', 'VIII', 'LVI', 'IV' ]
+pruebas = [ 'I', 'MCXXIII', 'VIII', 'LVI', 'IV', 'DCIV']
 for valor in pruebas:
     print(romano_a_entero(valor))
 
