@@ -1,3 +1,6 @@
+
+
+
 def romano_a_entero(romano):
 
     digitos_romanos = ['I', 'V', 'X', 'L', 'C', 'D', 'M']
@@ -14,19 +17,28 @@ def romano_a_entero(romano):
     if not isinstance(romano, str):
         return 'ERROR: tiene que ser un numero romano en formato cadena de texto'
     
+    
+  
+
     resultado = 0
     anterior = 0
-    romano_invertido = romano[::-1]
-    for letra in romano_invertido:
+    for letra in romano:
         if letra not in digitos_romanos:
             return f'ERROR: {letra} no es un digito romano válido'
-        actual = digitos_romanos[letra]
         
-        if anterior > actual: 
+
+
+        actual = digitos_romanos[letra]
+
+        if anterior < actual: 
+            #Comprobar que la resta es posible
+            #el orden de magnitud  no es mayor de uno
+            if anterior < 0 and len(str(actual)) > len (str(anterior)) > 1:
+                return 'ERROR: resta no posible'
             #deshacer la suma que hemos hecho antes
-            resultado = resultado - actual
+            resultado = resultado - anterior
             #sumar el valor actual, pero restando el anterior
-           
+            resultado = resultado + (actual - anterior)
         else:
             resultado = resultado + actual
 
