@@ -3,8 +3,6 @@ if validacion_de_tres:
     raise Exception(
         f'ERROR'
     ) '''
-digitos_romanos = ['I', 'V', 'X', 'L', 'C', 'D', 'M']
-
 
 '''def comprobar_repe_masdetres(nromano):
     anterior = ''
@@ -18,8 +16,6 @@ digitos_romanos = ['I', 'V', 'X', 'L', 'C', 'D', 'M']
 
 
 def romano_a_entero(romano):
-
-    valores = [1, 5, 10, 50, 100, 500, 1000]
     digitos_romanos = {
         'I': 1,
         'V': 5,
@@ -35,25 +31,28 @@ def romano_a_entero(romano):
 
     resultado = 0
     anterior = 0
+    super_anterior = 0
     for letra in romano:
         if letra not in digitos_romanos:
             raise ValueError('ERROR: {letra} no es un digito romano válido')
 
         actual = digitos_romanos[letra]
 
-    if anterior < actual:
-        # Comprobar que la resta es posible
-        # el orden de magnitud  no es mayor de uno
-        if anterior < 0 and len(str(actual)) > len(str(anterior)) > 1:
-            raise ValueError(f'ERROR: resta no posible')
+        if anterior < actual:
+            # Comprobar que la resta es posible
+            # el orden de magnitud  no es mayor de uno
+            if anterior > 0 and len(str(actual)) - len(str(anterior)) > 1:
+                raise ValueError(f'ERROR: resta no posible')
+            if anterior > 0 and actual > super_anterior > 0:
+                raise ValueError(f'ERROR: dos restas consecutivas')
         # deshacer la suma que hemos hecho antes
-        resultado = resultado - anterior
+            resultado = resultado - anterior
         # sumar el valor actual, pero restando el anterior
-        resultado = resultado + (actual - anterior)
-    else:
-        resultado = resultado + actual
-
-    anterior = actual
+            resultado = resultado + (actual - anterior)
+        else:
+            resultado = resultado + actual
+        super_anterior = anterior
+        anterior = actual
 
     return resultado
 
