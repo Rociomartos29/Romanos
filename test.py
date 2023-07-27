@@ -27,5 +27,14 @@ class romanpstest(unittest.TestCase):
         self.assertRaises(ValueError, romano_a_entero, ('IIV'))
         self.assertRaises(ValueError, romano_a_entero, ('IVX'))
 
+    def no_mas_de_tres_simbolos_consecutivos(self):
+        self.assertRaises(ValueError, romano_a_entero, ('IIII'))
+        self.assertRaises(ValueError, romano_a_entero, ('ICCC'))
+        self.assertRaises(ValueError, romano_a_entero, ('VVVV'))
+        self.assertRaises(ValueError, romano_a_entero, ('MMMM'))
+
+    '''def test_no_restas_multiplosdecinco(self):
+        self.assertRaises(ValueError, romano_a_entero, ('VX'))'''
+
 
 unittest.main()
