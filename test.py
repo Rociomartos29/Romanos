@@ -13,5 +13,19 @@ class romanpstest(unittest.TestCase):
         self.assertEqual(romano_a_entero('D'), 500)
         self.assertEqual(romano_a_entero('M'), 1000)
 
+    def test_numeros_basicos(self):
+        self.assertEqual(romano_a_entero('II'), 2)
+        self.assertEqual(romano_a_entero('IV'), 4)
+        self.assertEqual(romano_a_entero('IX'), 9)
+        self.assertEqual(romano_a_entero('CCV'), 205)
+        self.assertEqual(romano_a_entero('MCXXIII'), 1123)
+
+    def test_no_resta_mas_un_orden_magnitud(self):
+        self.assertRaises(ValueError, romano_a_entero, 'IC')
+
+    def test_no_restas_consecutivas(self):
+        self.assertRaises(ValueError, romano_a_entero, ('IIV'))
+        self.assertRaises(ValueError, romano_a_entero, ('IVX'))
+
 
 unittest.main()
