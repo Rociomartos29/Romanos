@@ -1,5 +1,5 @@
 import unittest
-from romanos2 import romano_a_entero
+from romanosfuncional2 import romano_a_entero
 
 
 class romanpstest(unittest.TestCase):
