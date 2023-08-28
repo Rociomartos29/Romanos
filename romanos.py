@@ -90,3 +90,12 @@ class RomanNumber:
 
     def __eq__(self, otro):
         return self.valor == otro or self.cadena == otro
+
+    def __ne__(self, otro):
+        if isinstance(otro, RomanNumber):
+            return self.valor != otro.valor
+        if isinstance(otro, int):
+            return self.cadena != otro
+        if isinstance(otro, str):
+            return self.valor != otro
+    raise ValueError('Solo puedo comparar numeros romanos, enteros o cadenas')
