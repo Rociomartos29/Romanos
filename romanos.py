@@ -1,8 +1,8 @@
-class romannumber: 
+class RomanNumber:
 
     def __init__(self, entrada):
         if isinstance(entrada, int):
-            self.valor = entrada 
+            self.valor = entrada
             self.cadena = ''
             print('He recibido un entero')
         elif isinstance(entrada, str):
@@ -11,20 +11,23 @@ class romannumber:
             print('He recibido una cadena')
         else:
             raise TypeError('Solo acepto enteros o cadenas')
+
     def convertir_a_romano(self):
-    
+
         numero = self.valor
         if type(numero) != int:
-            raise ValueError("Error: debes introducir un número entero ({numero})")
+            raise ValueError(
+                "Error: debes introducir un número entero ({numero})")
     # validar el valor del número
         if not (0 < numero < 4000):
-            raise ValueError("Error: el número debe estar entre 1 y 3999 ({numero})")
-    
+            raise ValueError(
+                "Error: el número debe estar entre 1 y 3999 ({numero})")
+
         conversores = [
-        ["", "M", "MM", "MMM"],
-        ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"],
-        ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"],
-        ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"],
+            ["", "M", "MM", "MMM"],
+            ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"],
+            ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"],
+            ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"],
         ]
         divisores = [1000, 100, 10, 1]
         resultado = ""
@@ -35,15 +38,17 @@ class romannumber:
             resultado = resultado + conversores[contador][cociente]
             contador = contador + 1
         return resultado
+
     def romano_a_entero(self):
+        romano = ()
         digitos_romanos = {
-        'I': 1,
-        'V': 5,
-        'X': 10,
-        'L': 50,
-        'C': 100,
-        'D': 500,
-        'M': 1000
+            'I': 1,
+            'V': 5,
+            'X': 10,
+            'L': 50,
+            'C': 100,
+            'D': 500,
+            'M': 1000
         }
         if not isinstance(romano, str):
             raise TypeError(
@@ -54,7 +59,8 @@ class romannumber:
         super_anterior = 0
         for letra in romano:
             if letra not in digitos_romanos:
-                raise ValueError('ERROR: {letra} no es un digito romano válido')
+                raise ValueError(
+                    'ERROR: {letra} no es un digito romano válido')
 
         actual = digitos_romanos[letra]
 
@@ -75,3 +81,12 @@ class romannumber:
         anterior = actual
 
         return resultado
+
+    def __str__(self):
+        return self.cadena
+
+    def __repr__(self):
+        return f'Objeto: {self.__str__}'
+
+    def __eq__(self, otro):
+        return self.valor == otro or self.cadena == otro
