@@ -3,12 +3,12 @@ class RomanNumber:
     def __init__(self, entrada):
         if isinstance(entrada, int):
             self.valor = entrada
-            self.cadena = ''
-            print('He recibido un entero')
+            self.cadena = self.convertir_a_romano()
+
         elif isinstance(entrada, str):
             self.cadena = entrada
-            self.valor = 0
-            print('He recibido una cadena')
+            self.valor = self.romano_a_entero()
+
         else:
             raise TypeError('Solo acepto enteros o cadenas')
 
@@ -40,7 +40,7 @@ class RomanNumber:
         return resultado
 
     def romano_a_entero(self):
-        romano = ()
+        romano = self.cadena
         digitos_romanos = {
             'I': 1,
             'V': 5,
@@ -86,7 +86,7 @@ class RomanNumber:
         return self.cadena
 
     def __repr__(self):
-        return f'Objeto: {self.__str__}'
+        return f'Objeto: {self.cadena}'
 
     def __eq__(self, otro):
         return self.valor == otro or self.cadena == otro
@@ -98,4 +98,65 @@ class RomanNumber:
             return self.cadena != otro
         if isinstance(otro, str):
             return self.valor != otro
-    raise ValueError('Solo puedo comparar numeros romanos, enteros o cadenas')
+        raise ValueError(
+            'Solo puedo comparar numeros romanos, enteros o cadenas')
+
+    def __lt__(self, otro):
+        if isinstance(otro, RomanNumber):
+            return self.valor < otro.valor
+        if isinstance(otro, int):
+            return self.valor < otro
+        if isinstance(otro, str):
+            return self.cadena < otro
+        raise ValueError('No puedo comparar si no es RomanNumber')
+
+    def __gt__(self, otro):
+        if isinstance(otro, RomanNumber):
+            return self.valor < otro.valor
+        if isinstance(otro, int):
+            return self.valor < otro
+        if isinstance(otro, str):
+            return self.cadena < otro
+        raise ValueError('No puedo comparar si no es RomanNumber')
+
+    def __add__(self, otro):
+        if isinstance(otro, RomanNumber):
+            return self.valor + otro.valor
+        if isinstance(otro, int):
+            return self.valor + otro
+        if isinstance(otro, str):
+            return self.cadena + RomanNumber(otro).valor
+        raise ValueError('Solo puedo sumar RomanNumber, cadena o entero')
+
+    def __radd__(self, otro):
+        return self.__add__(otro)
+
+    def __sub__(self, otro):
+        resta = 0
+        if isinstance(otro, RomanNumber):
+            resta = self.valor - otro.valor
+        elif isinstance(otro, int):
+            resta = self.valor - otro
+        elif isinstance(otro, str):
+            resta = self.cadena - RomanNumber(otro).valor
+        else:
+            raise ValueError('Solo sé restar RomanNumber, cadena o entero')
+        if resta < 0:
+            raise ValueError('Un número romano no puede ser negativo')
+        else:
+            return RomanNumber(resta)
+
+    def __rsub__(self, otro):
+        resta = 0
+        if isinstance(otro, RomanNumber):
+            resta = otro.valor - self.valor
+        elif isinstance(otro, int):
+            resta = otro - self.valor
+        elif isinstance(otro, str):
+            resta = RomanNumber(otro).valor - self.valor
+        else:
+            raise ValueError('Solo sé restar RomanNumber, cadena o entero')
+        if resta < 0:
+            raise ValueError('Un número romano no puede ser negativo')
+        else:
+            return RomanNumber(resta)
