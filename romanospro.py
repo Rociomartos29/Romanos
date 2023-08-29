@@ -94,7 +94,7 @@ class RomanNumber:
         return resultado
 
     def __str__(self):
-        return f'el número es {self.cadena}'
+        return self.cadena
 
     def __repr__(self):
         return f'Objeto: {self.cadena}'
